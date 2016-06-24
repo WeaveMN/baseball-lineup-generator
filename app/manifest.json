@@ -1,0 +1,7 @@
+{
+  "name": "baseball-lineup",
+  "short_name": "baseball-lineup",
+  "description": "Generate little league baseball lineups",
+  "start_url": "/",
+  "display": "standalone"
+}
