@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="view-teams">
@@ -21,16 +23,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <firebase-query
+        id="query"
+        app-name="baseball-lineup"
+        path="/teams/[[user.uid]]"
+        data="{{data}}">
+    </firebase-query>
+
+
     <div class="card">
       <h1>Teams</h1>
-      <p>This is view Number 1</p>
-      <p>Some more text here</p>
+      <div role="listbox">
+        <template is="dom-repeat" items="[[data]]" as="team">
+          <paper-item>[[team.name]]</paper-item>
+        </template>
+      </div>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'view-teams'
+      is: 'view-teams',
+      properties: {
+				user: {
+        	type: Object
+        }
+      }
     });
   </script>
 </dom-module>
