@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="view-lineups">
@@ -20,12 +22,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
-
+    <firebase-query
+        id="query"
+        app-name="baseball-lineup"
+        path="/teams/[[user.uid]]"
+        data="{{teams}}">
+    </firebase-query>
+    <firebase-query
+        id="query"
+        app-name="baseball-lineup"
+        path="/lineups/[[user.uid]]"
+        data="{{lineups}}">
+    </firebase-query>
     <div class="card">
-      <div class="circle">2</div>
       <h1>Lineups</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <div role="listbox">
+        <template is="dom-repeat" items="[[lineups]]" as="lineup">
+          <paper-item>[[lineup.date]] - [[lineup.type]]</paper-item>
+        </template>
+      </div>
     </div>
   </template>
 
