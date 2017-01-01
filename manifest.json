@@ -1,6 +1,6 @@
 {
-  "name": "Baseball Lineup Generator",
-  "short_name": "Baseball Lineup Generator",
+  "name": "Lineup Generator",
+  "short_name": "Lineup Generator",
   "start_url": "/?homescreen=1",
   "display": "standalone",
   "theme_color": "#3f51b5",
