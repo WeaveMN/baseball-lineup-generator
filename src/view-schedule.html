@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="view-teams">
+<dom-module id="view-schedule">
   <template>
     <style include="shared-styles">
       :host {
@@ -26,18 +26,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <firebase-query
         id="query"
         app-name="baseball-lineup"
-        path="/teams/[[user.uid]]"
-        data="{{teams}}">
+        path="/teams/[[user.uid]]/[[teamId]]"
+        data="{{team}}">
     </firebase-query>
 
 
     <div class="card">
-      <h1>Teams</h1>
+      <h1>Schedule</h1>
       <div role="listbox">
         <template is="dom-repeat" items="[[teams]]" as="team">
-          <a href="/team-detail/[[team.$key]]">
-            <paper-item>[[team.name]]</paper-item>
-          </a>
+          <paper-item>[[team.name]]</paper-item>
+          <div role="listbox">
+            <template is="dom-repeat" items="[[team.schedule]]" as="item">
+              <paper-item>[[item.date]] - [[item.type]]</paper-item>
+            </template>
+          </div>
         </template>
       </div>
     </div>
@@ -45,10 +48,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     Polymer({
-      is: 'view-teams',
+      is: 'view-schedule',
       properties: {
 				user: {
         	type: Object
+        },
+        teamId: {
+          type: Object
         }
       }
     });

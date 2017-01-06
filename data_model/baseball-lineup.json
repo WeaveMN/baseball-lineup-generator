@@ -58,7 +58,122 @@
         "schedule": [
           {
             "type": "game",
-            "date": "1/1/2017"
+            "date": "1/1/2017",
+            "num_innings": 5,
+            "lineup": {
+              "batting_order": [
+                {
+                  "id": 0,
+                  "name": "Pax"
+                },
+                {
+                  "id": 1,
+                  "name": "Noah"
+                },
+                {
+                  "id": 2,
+                  "name": "Oliver"
+                },
+                {
+                  "id": 3,
+                  "name": "Drew"
+                },
+                {
+                  "id": 4,
+                  "name": "Grayson"
+                },
+                {
+                  "id": 5,
+                  "name": "Josh"
+                },
+                {
+                  "id": 6,
+                  "name": "Malachi"
+                },
+                {
+                  "id": 7,
+                  "name": "Kayden"
+                },
+                {
+                  "id": 8,
+                  "name": "Isaiah"
+                },
+                {
+                  "id": 9,
+                  "name": "Cooper"
+                },
+                {
+                  "id": 10,
+                  "name": "Torsten"
+                },
+                {
+                  "id": 11,
+                  "name": "Zeke"
+                }
+              ],
+              "position_rotation": [
+                {
+                  "id": 4,
+                  "abbr": "2B",
+                  "name": "Second Base"
+                },
+                {
+                  "id": 10,
+                  "abbr": "RF",
+                  "name": "Right Field"
+                },
+                {
+                  "id": 12,
+                  "abbr": "B2",
+                  "name": "Bench 2"
+                },
+                {
+                  "id": 2,
+                  "abbr": "C",
+                  "name": "Catcher"
+                },
+                {
+                  "id": 1,
+                  "abbr": "P",
+                  "name": "Pitcher"
+                },
+                {
+                  "id": 3,
+                  "abbr": "1B",
+                  "name": "First Base"
+                },
+                {
+                  "id": 9,
+                  "abbr": "RC",
+                  "name": "Right Center"
+                },
+                {
+                  "id": 6,
+                  "abbr": "SS",
+                  "name": "Shortstop"
+                },
+                {
+                  "id": 7,
+                  "abbr": "LF",
+                  "name": "Left Field"
+                },
+                {
+                  "id": 5,
+                  "abbr": "3B",
+                  "name": "Third Base"
+                },
+                {
+                  "id": 8,
+                  "abbr": "LC",
+                  "name": "Left Center"
+                },
+                {
+                  "id": 11,
+                  "abbr": "B1",
+                  "name": "Bench 1"
+                }
+              ]
+            }
           }
         ]
       },
@@ -159,127 +274,6 @@
           {
             "id": 9,
             "name": "Cooper"
-          }
-        ]
-      }
-    ]
-  },
-  "lineups": {
-    "D6CIjp3L0QPcA2PaPpVSytbsRgq1": [
-      {
-        "team_id": 0,
-        "type": "baseball",
-        "date": "1/1/2017",
-        "batting_order": [
-          {
-            "id": 0,
-            "name": "Pax"
-          },
-          {
-            "id": 1,
-            "name": "Noah"
-          },
-          {
-            "id": 2,
-            "name": "Oliver"
-          },
-          {
-            "id": 3,
-            "name": "Drew"
-          },
-          {
-            "id": 4,
-            "name": "Grayson"
-          },
-          {
-            "id": 5,
-            "name": "Josh"
-          },
-          {
-            "id": 6,
-            "name": "Malachi"
-          },
-          {
-            "id": 7,
-            "name": "Kayden"
-          },
-          {
-            "id": 8,
-            "name": "Isaiah"
-          },
-          {
-            "id": 9,
-            "name": "Cooper"
-          },
-          {
-            "id": 10,
-            "name": "Torsten"
-          },
-          {
-            "id": 11,
-            "name": "Zeke"
-          }
-        ],
-        "position_rotation": [
-          {
-            "id": 4,
-            "abbr": "2B",
-            "name": "Second Base"
-          },
-          {
-            "id": 10,
-            "abbr": "RF",
-            "name": "Right Field"
-          },
-          {
-            "id": 12,
-            "abbr": "B2",
-            "name": "Bench 2"
-          },
-          {
-            "id": 2,
-            "abbr": "C",
-            "name": "Catcher"
-          },
-          {
-            "id": 1,
-            "abbr": "P",
-            "name": "Pitcher"
-          },
-          {
-            "id": 3,
-            "abbr": "1B",
-            "name": "First Base"
-          },
-          {
-            "id": 9,
-            "abbr": "RC",
-            "name": "Right Center"
-          },
-          {
-            "id": 6,
-            "abbr": "SS",
-            "name": "Shortstop"
-          },
-          {
-            "id": 7,
-            "abbr": "LF",
-            "name": "Left Field"
-          },
-          {
-            "id": 5,
-            "abbr": "3B",
-            "name": "Third Base"
-          },
-          {
-            "id": 8,
-            "abbr": "LC",
-            "name": "Left Center"
-          },
-          {
-            "id": 11,
-            "abbr": "B1",
-            "name": "Bench 1"
           }
         ]
       }

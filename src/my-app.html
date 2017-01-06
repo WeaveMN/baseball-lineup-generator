@@ -86,6 +86,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
+    <app-route
+        route="{{subroute}}"
+        pattern="/:id"
+        data="{{subrouteData}}">
+    </app-route>
 
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
@@ -93,8 +98,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="home" href="/">Home</a>
-          <a name="teams" href="/teams">Teams</a>
-          <a name="lineups" href="/lineups">Lineups</a>
+          <template is="dom-if" if="[[signedIn]]">
+            <a name="teams" href="/teams">Teams</a>
+          </template>
+          <a name="admin" href="/admin">Admin</a>
+          <!-- <a name="lineups" href="/lineups">Lineups</a> -->
           <!-- <a name="view3" href="/view3">View Three</a> -->
         </iron-selector>
       </app-drawer>
@@ -117,7 +125,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             role="main">
           <view-home name="home"></view-home>
           <view-teams name="teams" user="[[user]]"></view-teams>
-          <view-lineups name="lineups"></view-lineups>
+          <view-lineup-detail name="lineup-detail" user="[[user]]" team-id="[[detailId]]"></view-lineup-detail>
+          <view-schedule name="schedule" user="[[user]]" team-id="[[detailId]]"></view-schedule>
+          <view-team-detail name="team-detail" user="[[user]]" team-id="[[detailId]]"></view-team-detail>
+          <view-admin name="admin" app-name="baseball-lineup"></view-admin>
           <view-404 name="404"></view-404>
         </iron-pages>
       </app-header-layout>
@@ -133,16 +144,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
+        },
+        detailId: {
+          type: String,
+          reflectToAttribute: true
         }
       },
 
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_routePageChanged(routeData.page)',
+        '_subrouteDataChanged(subrouteData.id)'
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'home';
+        if(this.signedIn) {
+          this.page = page || 'home';
+        }
+        else {
+          this.page = 'home';
+        }
+
       },
+      _subrouteDataChanged: function(detailId) {
+        console.log('Sub Route detailId: ',detailId)
+        this.detailId = detailId || '';
+      },
+
 
       _pageChanged: function(page) {
         // Load page import on demand. Show 404 page if fails

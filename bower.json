@@ -18,7 +18,9 @@
     "polymer": "Polymer/polymer#^1.6.0",
     "polymerfire": "firebase/polymerfire#^0.10.3",
     "iron-icons": "PolymerElements/iron-icons#^1.2.0",
-    "paper-item": "PolymerElements/paper-item#^1.2.1"
+    "paper-item": "PolymerElements/paper-item#^1.2.1",
+    "paper-input": "PolymerElements/paper-input#^1.1.22",
+    "paper-button": "PolymerElements/paper-button#^1.0.14"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

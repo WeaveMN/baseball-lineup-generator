@@ -1,0 +1,252 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-database-behavior.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="view-admin">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      paper-button.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+    </style>
+
+    <div class="card">
+      <h1>Administration</h1>
+      <div>
+        <paper-button raised class="indigo" on-tap="createSamples">Create Samples</paper-button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'view-admin',
+      behaviors: [
+        Polymer.FirebaseDatabaseBehavior
+      ],
+      properties: {
+        appName: {
+          type: Object
+        }
+      },
+      createSamples: function(e) {
+        console.log("Create Sample Data");
+        console.log(firebase);
+        var uid = 'D6CIjp3L0QPcA2PaPpVSytbsRgq1';
+        // Get a key for a new Post.
+        var newTeamKey = firebase.database(this.app).ref().child('teams').push().key;
+        var newScheduleKey = firebase.database(this.app).ref().child('schedules').push().key;
+        var newLineupKey = firebase.database(this.app).ref().child('lineups').push().key;
+        // A post entry.
+        var teamData = {
+          "name": "2nd Grade Baseball Team 1",
+          "type": "baseball",
+          "players": [
+            {
+              "id": 0,
+              "name": "Pax"
+            },
+            {
+              "id": 1,
+              "name": "Noah"
+            },
+            {
+              "id": 2,
+              "name": "Oliver"
+            },
+            {
+              "id": 3,
+              "name": "Drew"
+            },
+            {
+              "id": 4,
+              "name": "Grayson"
+            },
+            {
+              "id": 5,
+              "name": "Josh"
+            },
+            {
+              "id": 6,
+              "name": "Malachi"
+            },
+            {
+              "id": 7,
+              "name": "Kayden"
+            },
+            {
+              "id": 8,
+              "name": "Isaiah"
+            },
+            {
+              "id": 9,
+              "name": "Cooper"
+            },
+            {
+              "id": 10,
+              "name": "Torsten"
+            },
+            {
+              "id": 11,
+              "name": "Zeke"
+            }
+          ],
+          "schedule":newScheduleKey
+        };
+
+        var scheduleData = {
+          "type": "game",
+            "date": "1/1/2017",
+            "num_innings": 5,
+            "lineup": newLineupKey
+        };
+
+        var lineupData = {
+          "batting_order": [
+                {
+                  "id": 0,
+                  "name": "Pax"
+                },
+                {
+                  "id": 1,
+                  "name": "Noah"
+                },
+                {
+                  "id": 2,
+                  "name": "Oliver"
+                },
+                {
+                  "id": 3,
+                  "name": "Drew"
+                },
+                {
+                  "id": 4,
+                  "name": "Grayson"
+                },
+                {
+                  "id": 5,
+                  "name": "Josh"
+                },
+                {
+                  "id": 6,
+                  "name": "Malachi"
+                },
+                {
+                  "id": 7,
+                  "name": "Kayden"
+                },
+                {
+                  "id": 8,
+                  "name": "Isaiah"
+                },
+                {
+                  "id": 9,
+                  "name": "Cooper"
+                },
+                {
+                  "id": 10,
+                  "name": "Torsten"
+                },
+                {
+                  "id": 11,
+                  "name": "Zeke"
+                }
+              ],
+              "position_rotation": [
+                {
+                  "id": 4,
+                  "abbr": "2B",
+                  "name": "Second Base"
+                },
+                {
+                  "id": 10,
+                  "abbr": "RF",
+                  "name": "Right Field"
+                },
+                {
+                  "id": 12,
+                  "abbr": "B2",
+                  "name": "Bench 2"
+                },
+                {
+                  "id": 2,
+                  "abbr": "C",
+                  "name": "Catcher"
+                },
+                {
+                  "id": 1,
+                  "abbr": "P",
+                  "name": "Pitcher"
+                },
+                {
+                  "id": 3,
+                  "abbr": "1B",
+                  "name": "First Base"
+                },
+                {
+                  "id": 9,
+                  "abbr": "RC",
+                  "name": "Right Center"
+                },
+                {
+                  "id": 6,
+                  "abbr": "SS",
+                  "name": "Shortstop"
+                },
+                {
+                  "id": 7,
+                  "abbr": "LF",
+                  "name": "Left Field"
+                },
+                {
+                  "id": 5,
+                  "abbr": "3B",
+                  "name": "Third Base"
+                },
+                {
+                  "id": 8,
+                  "abbr": "LC",
+                  "name": "Left Center"
+                },
+                {
+                  "id": 11,
+                  "abbr": "B1",
+                  "name": "Bench 1"
+                }
+              ]
+        };
+
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        var updates = {};
+        updates['/teams/' + uid + '/' + newTeamKey] = teamData;
+        updates['/schedules/' + uid + '/' + newScheduleKey] = scheduleData;
+        updates['/lineups/' + uid + '/' + newLineupKey] = lineupData;
+
+        firebase.database(this.app).ref().update(updates);
+
+      }
+    });
+  </script>
+</dom-module>
