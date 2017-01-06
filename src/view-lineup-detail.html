@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="view-lineups">
+<dom-module id="view-lineup-detail">
   <template>
     <style include="shared-styles">
       :host {
@@ -28,25 +28,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         path="/teams/[[user.uid]]"
         data="{{teams}}">
     </firebase-query>
-    <firebase-query
-        id="query"
-        app-name="baseball-lineup"
-        path="/lineups/[[user.uid]]"
-        data="{{lineups}}">
-    </firebase-query>
+
     <div class="card">
-      <h1>Lineups</h1>
-      <div role="listbox">
-        <template is="dom-repeat" items="[[lineups]]" as="lineup">
-          <paper-item>[[lineup.date]] - [[lineup.type]]</paper-item>
-        </template>
-      </div>
+      <h1>Lineup Detail</h1>
+
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'view-lineups'
+      is: 'view-lineup-detail'
     });
   </script>
 </dom-module>
