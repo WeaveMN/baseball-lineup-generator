@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-database-behavior.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="view-team-detail">
@@ -34,7 +36,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       data="{{team}}">
     </firebase-document>
-
+    <firebase-query
+        id="scheduleQuery"
+        app-name="baseball-lineup"
+        path="/events/[[user.uid]]/[[teamId]]"
+        data="{{events}}">
+    </firebase-query>
 
 
     <div class="card">
@@ -46,10 +53,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-item>[[player.name]]</paper-item>
         </template>
       </div>
-      <h2>Schedule</h2>
+      <h2>Schedule</h2><paper-button raised class="indigo" on-tap="addEvent">Add Event</paper-button>
       <div role="listbox" class="scheduleList">
-        <template is="dom-repeat" items="[[team.schedule]]" as="item">
-          <paper-item>[[item.date]] - [[item.type]]</paper-item>
+        <template is="dom-repeat" items="[[events]]" as="item">
+          <a href="/event/[[teamId]]/[[item.$key]]" tabindex="-1">
+            <paper-item>[[item.date]] - [[item.type]]</paper-item>
+          </a>
         </template>
       </div>
     </div>
@@ -58,6 +67,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     Polymer({
       is: 'view-team-detail',
+      behaviors: [
+        Polymer.FirebaseDatabaseBehavior
+      ],
       properties: {
 				user: {
         	type: Object
@@ -74,6 +86,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // do something when the query returns values
         console.log('view-team-detail:teamChanged:newData:',newData);
         console.log('view-team-detail:teamChanged:oldData:',oldData);
+      },
+      addEvent: function(event) {
+        console.log('Add Event');
+        var newEventKey = firebase.database(this.app).ref().child('events').push().key;
+        
+        var eventData = {
+          "type": "game",
+            "date": "3/1/2017",
+            "num_innings": 5,
+            "lineup": newLineupKey
+        };
       }
     });
   </script>

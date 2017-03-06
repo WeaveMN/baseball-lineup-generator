@@ -55,11 +55,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log("Create Sample Data");
         console.log(firebase);
         var uid = 'D6CIjp3L0QPcA2PaPpVSytbsRgq1';
+				var teamId = '';
         // Get a key for a new Post.
         var newTeamKey = firebase.database(this.app).ref().child('teams').push().key;
         var newScheduleKey = firebase.database(this.app).ref().child('schedules').push().key;
         var newLineupKey = firebase.database(this.app).ref().child('lineups').push().key;
+				var newLineupKey2 = firebase.database(this.app).ref().child('lineups').push().key;
+        var newEventKey = firebase.database(this.app).ref().child('events').push().key;
+				var newEventKey2 = firebase.database(this.app).ref().child('events').push().key;
         // A post entry.
+
+
+        
         var teamData = {
           "name": "2nd Grade Baseball Team 1",
           "type": "baseball",
@@ -112,17 +119,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               "id": 11,
               "name": "Zeke"
             }
-          ],
-          "schedule":newScheduleKey
+          ]
         };
 
-        var scheduleData = {
+        var eventData = {
           "type": "game",
-            "date": "1/1/2017",
+            "date": "3/1/2017",
             "num_innings": 5,
             "lineup": newLineupKey
         };
-
+				var eventData2 = {
+          "type": "game",
+            "date": "3/4/2017",
+            "num_innings": 5,
+            "lineup": newLineupKey2
+        };
         var lineupData = {
           "batting_order": [
                 {
@@ -237,12 +248,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 }
               ]
         };
-
+				//teamData.schedule[newEventKey] = eventData;
+				//teamData.schedule[newEventKey2] = eventData2;
         // Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {};
         updates['/teams/' + uid + '/' + newTeamKey] = teamData;
-        updates['/schedules/' + uid + '/' + newScheduleKey] = scheduleData;
+        updates['/events/' + uid + '/' + '/' + newTeamKey + '/' + newEventKey] = eventData;
+        updates['/events/' + uid + '/' + '/' + newTeamKey + '/' + newEventKey2] = eventData2;
         updates['/lineups/' + uid + '/' + newLineupKey] = lineupData;
+				updates['/lineups/' + uid + '/' + newLineupKey2] = lineupData;
 
         firebase.database(this.app).ref().update(updates);
 

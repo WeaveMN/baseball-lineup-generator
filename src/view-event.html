@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="view-schedule">
+<dom-module id="view-event">
   <template>
     <style include="shared-styles">
       :host {
@@ -22,25 +22,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
+    <firebase-document
+      id="teamDetail"
+      app-name="baseball-lineup"
+      path="/teams/[[user.uid]]/[[teamId]]"
 
-    <firebase-query
-        id="query"
-        app-name="baseball-lineup"
-        path="/teams/[[user.uid]]/[[teamId]]"
-        data="{{team}}">
-    </firebase-query>
+      data="{{team}}">
+    </firebase-document>
+    <firebase-document
+      id="eventDetail"
+      app-name="baseball-lineup"
+      path="/events/[[user.uid]]/[[teamId]]/[[eventId]]"
 
+      data="{{event}}">
+    </firebase-document>
+    <firebase-document
+      id="lineupDetail"
+      app-name="baseball-lineup"
+      path="/lineups/[[user.uid]]/[[event.lineup]]"
 
+      data="{{lineup}}">
+    </firebase-document>    
     <div class="card">
-      <h1>Schedule</h1>
+      <h1>[[team.name]] - [[event.date]] - [[event.type]]</h1>
+      <h2>Batting Order</h2>
       <div role="listbox">
-        <template is="dom-repeat" items="[[teams]]" as="team">
-          <paper-item>[[team.name]]</paper-item>
-          <div role="listbox">
-            <template is="dom-repeat" items="[[team.schedule]]" as="item">
-              <paper-item>[[item.date]] - [[item.type]]</paper-item>
-            </template>
-          </div>
+        <template is="dom-repeat" items="[[lineup.batting_order]]" as="player">
+          <paper-item>[[player.name]]</paper-item>
         </template>
       </div>
     </div>
@@ -48,13 +56,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     Polymer({
-      is: 'view-schedule',
+      is: 'view-event',
       properties: {
 				user: {
         	type: Object
         },
         teamId: {
-          type: Object
+          type: String
+        },
+        eventId: {
+          type: String
         }
       }
     });

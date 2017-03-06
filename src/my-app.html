@@ -89,9 +89,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-route
         route="{{subroute}}"
         pattern="/:id"
-        data="{{subrouteData}}">
-    </app-route>
-
+        data="{{subrouteData}}"
+        tail="{{subSubRoute}}"></app-route>
+    <app-route
+        route="{{subSubRoute}}"
+        pattern="/:id"
+        data="{{subSubRouteData}}"></app-route>
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer>
@@ -126,7 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <view-home name="home"></view-home>
           <view-teams name="teams" user="[[user]]"></view-teams>
           <view-lineup-detail name="lineup-detail" user="[[user]]" team-id="[[detailId]]"></view-lineup-detail>
-          <view-schedule name="schedule" user="[[user]]" team-id="[[detailId]]"></view-schedule>
+          <view-event name="event" user="[[user]]" team-id="[[detailId]]" event-id="[[subDetailId]]"></view-event>
           <view-team-detail name="team-detail" user="[[user]]" team-id="[[detailId]]"></view-team-detail>
           <view-admin name="admin" app-name="baseball-lineup"></view-admin>
           <view-404 name="404"></view-404>
@@ -148,30 +151,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         detailId: {
           type: String,
           reflectToAttribute: true
+        },
+        subDetailId : {
+          type: String,
+          reflectToAttribute: true
         }
       },
 
       observers: [
         '_routePageChanged(routeData.page)',
-        '_subrouteDataChanged(subrouteData.id)'
+        '_subrouteDataChanged(subrouteData.id)',
+        '_subSubRouteDataChanged(subSubRouteData.id)'
       ],
 
       _routePageChanged: function(page) {
-        if(this.signedIn) {
-          this.page = page || 'home';
-        }
-        else {
-          this.page = 'home';
-        }
+        console.log('Route page: ', page);
+        this.page = page || 'home';
+        // if(this.signedIn) {
+        //   console.log('Signed in');
+        //   this.page = page || 'home';
+        // }
+        // else {
+        //   console.log('Not signed in');
+        //   this.page = 'home';
+        // }
 
       },
       _subrouteDataChanged: function(detailId) {
         console.log('Sub Route detailId: ',detailId)
         this.detailId = detailId || '';
       },
-
+      _subSubRouteDataChanged: function(subDetailId) {
+        console.log('Sub Sub Route detailId: ',subDetailId)
+        this.subDetailId = subDetailId || '';
+      },
 
       _pageChanged: function(page) {
+        console.log('Page changed: ', page);
         // Load page import on demand. Show 404 page if fails
         var resolvedPageUrl = this.resolveUrl('view-' + page + '.html');
         this.importHref(resolvedPageUrl, null, this._showPage404, true);
