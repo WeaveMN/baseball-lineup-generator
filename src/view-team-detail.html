@@ -13,6 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-database-behavior.html">
 <link rel="import" href="shared-styles.html">
 
@@ -62,6 +64,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </div>
     </div>
+    <paper-dialog id="addEventDialog">
+      <h2>Add New Event</h2>
+      <paper-date-picker id="picker"></paper-date-picker>
+      
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Save</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -80,6 +91,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         team: {
           type: Object,
           observer: 'teamChanged'
+        },
+        appName: {
+          type: String
         }
       },
       teamChanged: function (newData, oldData) {
@@ -89,14 +103,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       addEvent: function(event) {
         console.log('Add Event');
-        var newEventKey = firebase.database(this.app).ref().child('events').push().key;
+        //var newEventKey = firebase.database(this.app).ref().child('events').push().key;
         
-        var eventData = {
-          "type": "game",
-            "date": "3/1/2017",
-            "num_innings": 5,
-            "lineup": newLineupKey
-        };
+        // var eventData = {
+        //   "type": "game",
+        //     "date": "3/1/2017",
+        //     "num_innings": 5,
+        //     "lineup": newLineupKey
+        // };
       }
     });
   </script>

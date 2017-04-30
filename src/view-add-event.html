@@ -1,0 +1,75 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-database-behavior.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="view-add-event">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <firebase-document
+      id="teamDetail"
+      app-name="baseball-lineup"
+      path="/teams/[[user.uid]]/[[teamId]]"
+
+      data="{{team}}">
+    </firebase-document>
+    <firebase-query
+      id="events"
+      app-name="baseball-lineup"
+      path="/events/[[user.uid]]/[[teamId]]"
+
+      data="{{events}}">
+    </firebase-query>
+   
+    <div class="card">
+      <h1>[[team.name]] - [[event.date]] - [[event.type]]</h1>
+      <h2>Batting Order</h2>
+      <div role="listbox">
+        <template is="dom-repeat" items="[[lineup.batting_order]]" as="player">
+          <paper-item>[[player.name]]</paper-item>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'view-add-event',
+      behaviors: [
+        Polymer.FirebaseDatabaseBehavior
+      ],
+      properties: {
+				user: {
+        	type: Object
+        },
+        teamId: {
+          type: String
+        },
+        appName: {
+          type: String
+        }
+      }
+    });
+  </script>
+</dom-module>
